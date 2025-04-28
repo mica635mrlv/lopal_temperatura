@@ -1,12 +1,13 @@
 package br.dev.milla.temperatura.gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JTextField;
 
 import br.dev.milla.temperatura.model.Temperatura;
@@ -23,36 +24,90 @@ public class TelaConversor {
 	public void criarTelaConversor() {
 
 		JFrame tela = new JFrame();
-		tela.setSize(400, 350);
-		tela.setDefaultCloseOperation(3);
+		tela.setSize(500, 320);
+		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tela.setTitle("Conversor de Temperatura");
-		tela.setLocationRelativeTo(null);
 		tela.setLayout(null);
 		tela.setResizable(false);
+		tela.setLocationRelativeTo(null);
 
 		labelCelsius = new JLabel();
 		labelCelsius.setText("Temperatura em graus celsius:");
-		labelCelsius.setBounds(25, 15, 300, 35);
+		labelCelsius.setBounds(37, 20, 250, 35);
+		labelCelsius.setFont(new Font("Arial", Font.BOLD, 15));
 
 		txtCelsius = new JTextField();
-		txtCelsius.setBounds(25, 50, 336, 30);
+		txtCelsius.setBounds(37, 55, 410, 35);
+		txtCelsius.setFont(new Font("Arial", Font.BOLD, 15));
 
 		buttonFahreinheit = new JButton();
 		buttonFahreinheit.setText("FAHREINHEIT");
-		buttonFahreinheit.setBounds(25, 90, 165, 30);
+		buttonFahreinheit.setBounds(37, 100, 200, 35);
+		buttonFahreinheit.setFont(new Font("Arial", Font.BOLD, 15));
+		buttonFahreinheit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String textCelsius = txtCelsius.getText();
+				
+				try {
+				
+					double celsius = Double.parseDouble(textCelsius);
+						
+					Temperatura fahreinheit = new Temperatura();
+					fahreinheit.setCelsius(celsius);
+					celsius = fahreinheit.converterParaFahreinheit();
+						
+					labelResultado.setText(String.valueOf(Math.round(celsius) + "  FAHREINHEIT"));
+					
+				} catch (NumberFormatException e2) {
+					
+					labelMensagemErro.setText("<html>Para que o conversor funcione corretamente <br> digite apenas números!<html>");
+					
+				}
+					
+			}
+		});
 
 		buttonKelvin = new JButton();
 		buttonKelvin.setText("KELVIN");
-		buttonKelvin.setBounds(195, 90, 165, 30);
+		buttonKelvin.setBounds(246, 100, 200, 35);
+		buttonKelvin.setFont(new Font("Arial", Font.BOLD, 15));
+		buttonKelvin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String textCelsius = txtCelsius.getText();
+				
+				try {
+					
+					double celsius = Double.parseDouble(textCelsius);
+					
+					Temperatura kelvin = new Temperatura();
+					kelvin.setCelsius(celsius);
+					celsius = kelvin.converterParaKevin();
+						
+					labelResultado.setText(String.valueOf(Math.round(celsius) + "  KELVIN"));
+					
+				} catch (NumberFormatException e2) {
+					
+					labelMensagemErro.setText("<html>Para que o conversor funcione corretamente <br> digite apenas números!<html>");
+					
+				}
+					
+			}
+		});
 
 		labelResultado = new JLabel();
-		labelResultado.setText("89 FAHREINHEIT");
-		labelResultado.setBounds(112, 130, 225, 25);
-		
+		labelResultado.setBounds(140, 162, 250, 35);
+		labelResultado.setFont(new Font("Arial", Font.BOLD, 22));
 
 		labelMensagemErro = new JLabel();
-		labelMensagemErro.setText("<html>Caso o valor fornecido pelo usuário esteja incorreto,<br>a mensagem de erro deverá aparecer aqui.</html>");
-		labelMensagemErro.setBounds(20, 80, 400, 40);
+		labelMensagemErro.setBounds(67, 210, 400, 40);
+		labelMensagemErro.setForeground(Color.red);
+		labelMensagemErro.setFont(new Font("Arial", Font.BOLD, 15));
 
 		tela.getContentPane().add(labelCelsius);
 		tela.getContentPane().add(txtCelsius);
@@ -60,31 +115,9 @@ public class TelaConversor {
 		tela.getContentPane().add(buttonKelvin);
 		tela.getContentPane().add(labelResultado);
 		tela.getContentPane().add(labelMensagemErro);
-
-		// Configurar os ouvintes (listener)
-		buttonFahreinheit.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				String celsius = txtCelsius.getText();
-
-				// Casting -> conversão de um tipo para outro
-				double celsiusDouble = Double.parseDouble(celsius);
-
-				Temperatura temperatura = new Temperatura();
-				temperatura.setMultiplicando(multiplicandoDouble);
-				temperatura.setMinimoMultiplicador(minimoMultiplicadorDouble);
-				temperatura.setMaximoMultiplicador(maximoMultiplicadorDouble);
-				resultado = temperatura.converterParaKelvin();
-				resultado = temperatura.converterParaFahreinheit();
-
-			}
-
-		});
-
+		
 		tela.setVisible(true);
-
+		
 	}
 
 }
