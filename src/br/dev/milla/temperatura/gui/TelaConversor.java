@@ -83,7 +83,7 @@ public class TelaConversor {
 					double celsius = Double.parseDouble(textCelsius);
 					
 					double kelvin = celsius + 273.15;
-					labelResultado.setText(String.format("%.1f  KELVIN",  kelvin));	
+					labelResultado.setText(String.format("%.2f  KELVIN",  kelvin));	
 					
 				} catch (NumberFormatException e2) {
 					
