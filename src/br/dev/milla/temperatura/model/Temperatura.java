@@ -12,12 +12,12 @@ public class Temperatura {
 			this.celsius = celsius;
 		}
 		
-		public double converterParaFahreinheit() {
-			double fahreinheit = (celsius * 1.8) + 32;
-			return fahreinheit;
+		public double converterParaFahrenheit() {
+			double fahrenheit = (celsius * 1.8) + 32;
+			return fahrenheit;
 		}
 		
-		public double converterParaKevin() {
+		public double converterParaKelvin() {
 			double kelvin = celsius + 273.15;
 			return kelvin;
 		}

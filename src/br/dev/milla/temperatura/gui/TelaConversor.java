@@ -16,7 +16,7 @@ public class TelaConversor {
 
 	private JLabel labelCelsius;
 	private JTextField txtCelsius;
-	private JButton buttonFahreinheit;
+	private JButton buttonFahrenheit;
 	private JButton buttonKelvin;
 	private JLabel labelResultado;
 	private JLabel labelMensagemErro;
@@ -40,11 +40,11 @@ public class TelaConversor {
 		txtCelsius.setBounds(37, 55, 410, 35);
 		txtCelsius.setFont(new Font("Arial", Font.BOLD, 15));
 
-		buttonFahreinheit = new JButton();
-		buttonFahreinheit.setText("FAHREINHEIT");
-		buttonFahreinheit.setBounds(37, 100, 200, 35);
-		buttonFahreinheit.setFont(new Font("Arial", Font.BOLD, 15));
-		buttonFahreinheit.addActionListener(new ActionListener() {
+		buttonFahrenheit = new JButton();
+		buttonFahrenheit.setText("FAHRENHEIT");
+		buttonFahrenheit.setBounds(37, 100, 200, 35);
+		buttonFahrenheit.setFont(new Font("Arial", Font.BOLD, 15));
+		buttonFahrenheit.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -54,12 +54,9 @@ public class TelaConversor {
 				try {
 				
 					double celsius = Double.parseDouble(textCelsius);
-						
-					Temperatura fahreinheit = new Temperatura();
-					fahreinheit.setCelsius(celsius);
-					celsius = fahreinheit.converterParaFahreinheit();
-						
-					labelResultado.setText(String.valueOf(Math.round(celsius) + "  FAHREINHEIT"));
+					
+					double fahrenheit = (celsius * 1.8) + 32;
+					labelResultado.setText(String.format("%.1f  FAHRENHEIT",  fahrenheit));
 					
 				} catch (NumberFormatException e2) {
 					
@@ -85,11 +82,8 @@ public class TelaConversor {
 					
 					double celsius = Double.parseDouble(textCelsius);
 					
-					Temperatura kelvin = new Temperatura();
-					kelvin.setCelsius(celsius);
-					celsius = kelvin.converterParaKevin();
-						
-					labelResultado.setText(String.valueOf(Math.round(celsius) + "  KELVIN"));
+					double kelvin = celsius + 273.15;
+					labelResultado.setText(String.format("%.1f  KELVIN",  kelvin));	
 					
 				} catch (NumberFormatException e2) {
 					
@@ -111,7 +105,7 @@ public class TelaConversor {
 
 		tela.getContentPane().add(labelCelsius);
 		tela.getContentPane().add(txtCelsius);
-		tela.getContentPane().add(buttonFahreinheit);
+		tela.getContentPane().add(buttonFahrenheit);
 		tela.getContentPane().add(buttonKelvin);
 		tela.getContentPane().add(labelResultado);
 		tela.getContentPane().add(labelMensagemErro);
